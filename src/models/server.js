@@ -1,7 +1,7 @@
 const express = require('express')
-
+const { connectDB } = require('../database/MongoConnection')
 const cors = require('cors')
-const { bdmysql } = require('../database/MySqlConnection');
+const { M } = require('../database/MongoConnection')
 
 class Server {
     
@@ -42,8 +42,8 @@ class Server {
 
     async dbConnection() {
         try {
-            await bdmysql.authenticate();
-            console.log('Connection OK a MySQL.');
+            await connectDB()
+            .then(console.log('Successful DB connection'));
         } catch (error) {
             console.error('No se pudo Conectar a la BD MySQL', error);
         }
